@@ -7,6 +7,9 @@ export default new Vuex.Store({
   state: {
   },
   mutations: {
+    execAction(state, action) {
+      document.execCommand(action, false);
+    }
   },
   actions: {
   },
