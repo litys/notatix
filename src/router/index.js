@@ -11,9 +11,9 @@ Vue.use(VueRouter)
     component: Home
   },
   {
-    path: '/editor',
-    name: 'Editor',
-    component: () => import('../views/Editor.vue')
+    path: '/story',
+    name: 'Story',
+    component: () => import('../views/Story.vue')
   },
   {
     path: '/settings',

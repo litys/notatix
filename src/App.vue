@@ -14,7 +14,7 @@
 
     <v-main>
       <v-container>
-      <router-view/>
+        <router-view/>
       </v-container>
     </v-main>
 
@@ -92,9 +92,9 @@ export default {
         url: '/'
       },
       { 
-        title: 'Editor', 
+        title: 'Story', 
         icon: 'mdi-open-in-new',
-        url: '/editor'
+        url: '/story'
       },
       { 
         title: 'Settings', 
@@ -103,78 +103,80 @@ export default {
       },
     ],
     action_menu: null,
-    action_items: [
-      {
-        title: 'Bold',
-        icon: 'mdi-open-in-new',
-        action: 'bold'
-      },
-      {
-        title: 'Italic',
-        icon: 'mdi-open-in-new',
-        action: 'italic'
-      },
-      {
-        title: 'Underline',
-        icon: 'mdi-open-in-new',
-        action: 'underline'
-      },
-      {
-        title: 'StrikeThrough',
-        icon: 'mdi-open-in-new',
-        action: 'strikeThrough'
-      },
+    // action_items: [
+    //   {
+    //     title: 'Italic',
+    //     icon: 'mdi-open-in-new',
+    //     action: 'italic'
+    //   },
+    //   {
+    //     title: 'Underline',
+    //     icon: 'mdi-open-in-new',
+    //     action: 'underline'
+    //   },
+    //   {
+    //     title: 'StrikeThrough',
+    //     icon: 'mdi-open-in-new',
+    //     action: 'strikeThrough'
+    //   },
 
-      {
-        title: 'justify Left',
-        icon: 'mdi-open-in-new',
-        action: 'justifyLeft'
-      },
-      {
-        title: 'justifyCenter',
-        icon: 'mdi-open-in-new',
-        action: 'justifyCenter'
-      },
-      {
-        title: 'justifyRight',
-        icon: 'mdi-open-in-new',
-        action: 'justifyRight'
-      },
+    //   {
+    //     title: 'justify Left',
+    //     icon: 'mdi-open-in-new',
+    //     action: 'justifyLeft'
+    //   },
+    //   {
+    //     title: 'justifyCenter',
+    //     icon: 'mdi-open-in-new',
+    //     action: 'justifyCenter'
+    //   },
+    //   {
+    //     title: 'justifyRight',
+    //     icon: 'mdi-open-in-new',
+    //     action: 'justifyRight'
+    //   },
 
-      {
-        title: 'insertOrderedList',
-        icon: 'mdi-open-in-new',
-        action: 'insertOrderedList'
-      },
-      {
-        title: 'insertUnorderedList',
-        icon: 'mdi-open-in-new',
-        action: 'insertUnorderedList'
-      },
+    //   {
+    //     title: 'insertOrderedList',
+    //     icon: 'mdi-open-in-new',
+    //     action: 'insertOrderedList'
+    //   },
+    //   {
+    //     title: 'insertUnorderedList',
+    //     icon: 'mdi-open-in-new',
+    //     action: 'insertUnorderedList'
+    //   },
 
-      {
-        title: 'insertHorizontalRule',
-        icon: 'mdi-open-in-new',
-        action: 'insertHorizontalRule'
-      },
+    //   {
+    //     title: 'insertHorizontalRule',
+    //     icon: 'mdi-open-in-new',
+    //     action: 'insertHorizontalRule'
+    //   },
 
-      {
-        title: 'undo',
-        icon: 'mdi-open-in-new',
-        action: 'undo'
-      },
-      {
-        title: 'removeFormat',
-        icon: 'mdi-open-in-new',
-        action: 'removeFormat'
-      },
-    ]
+    //   {
+    //     title: 'undo',
+    //     icon: 'mdi-open-in-new',
+    //     action: 'undo'
+    //   },
+    //   {
+    //     title: 'removeFormat',
+    //     icon: 'mdi-open-in-new',
+    //     action: 'removeFormat'
+    //   },
+    // ]
   }),
   computed: {
     prohibitedPath(){
       if(this.$route.path == '/' || this.$route.path == '/settings') return true;
       else return false;
+    },
+    action_items(){
+      return this.$store.state.action_items;
     }
+  },
+  mounted(){
+    if(!!localStorage.getItem('notatix')) this.$store.commit('loadFromStorage');
+    else this.$store.dispatch('factoryReset'); // First run
   }
 };
 </script>
