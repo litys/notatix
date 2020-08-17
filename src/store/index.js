@@ -15,7 +15,16 @@ export default new Vuex.Store({
         }
       },
     ],
-    story: ''
+    story: '',
+    colors: {
+      app: '#fff',
+      toolbar: {
+        color: '#1976D2',
+        button: '#5AB55E'
+      },
+      textarea: '#fff',
+      settings: '#1976D2'
+    }
   },
   mutations: {
     execAction(state, action) {
@@ -48,6 +57,27 @@ export default new Vuex.Store({
     },
     deleteFunction(state, data) { // deleting existing function
       state.action_items.splice(data,1);
+    },
+
+    updateColor(state, data) {
+      console.log(data)
+      switch (data.title) {
+        case 'app':
+          state.colors.app = data.value;
+          break;
+        case 'toolbar_color':
+          state.colors.toolbar.color = data.value;
+          break;
+        case 'toolbar_button':
+          state.colors.toolbar.button = data.value;
+          break;
+        case 'editor':
+          state.colors.textarea = data.value;
+          break;
+        case 'settings':
+          state.colors.settings = data.value;
+          break;
+      }
     }
   },
   actions: {
@@ -70,7 +100,16 @@ export default new Vuex.Store({
             }
           },
         ],
-        story: 'Start writing!'
+        story: 'Start writing!',
+        colors: {
+          app: '#fff',
+          toolbar: {
+            color: '#1976D2',
+            button: '#5AB55E'
+          },
+          textarea: '#fff',
+          settings: '#1976D2'
+        }
       }
 
       localStorage.setItem('notatix', JSON.stringify(factoryData));

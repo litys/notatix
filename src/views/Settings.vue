@@ -6,31 +6,32 @@
     <v-tabs
       fixed-tabs
       show-arrows
+      :color="$store.state.colors.settings"
     >
       <v-tab>
         <v-icon left>mdi-account</v-icon>
         General
       </v-tab>
       <v-tab>
-        <v-icon left>mdi-account</v-icon>
+        <v-icon left>mdi-palette</v-icon>
         Colors
       </v-tab>
       <v-tab>
-        <v-icon left>mdi-lock</v-icon>
+        <v-icon left>mdi-script-text-outline</v-icon>
         Functions
       </v-tab>
       <v-tab>
-        <v-icon left>mdi-lock</v-icon>
+        <v-icon left>mdi-help-circle</v-icon>
         Help
       </v-tab>
       <v-tab>
-        <v-icon left>mdi-lock</v-icon>
+        <v-icon left>mdi-information</v-icon>
         About
       </v-tab>
 
       <v-tab-item>
         <v-card flat>
-          <v-card-text>
+          <v-card-text style="text-align: center">
             Work in progress
 
             <v-switch
@@ -50,7 +51,105 @@
       <v-tab-item>
         <v-card flat>
           <v-card-text>
+
+            <v-row>
+              <v-col cols="12" md="6" lg="4">
+                <v-alert
+                  border="left"
+                  style="cursor: pointer"
+                  colored-border
+                  :color="$store.state.colors.app"
+                  @click="editColor('app')"
+                  elevation="2"
+                >
+                  Aplication background
+                </v-alert>
+              </v-col>
+              <v-col cols="12" md="6" lg="4">
+                <v-alert
+                  border="left"
+                  style="cursor: pointer"
+                  colored-border
+                  :color="$store.state.colors.toolbar.color"
+                  @click="editColor('toolbar_color')"
+                  elevation="2"
+                >
+                  Upper toolbar
+                </v-alert>
+              </v-col>
+              <v-col cols="12" md="6" lg="4">
+                <v-alert
+                  border="left"
+                  style="cursor: pointer"
+                  colored-border
+                  :color="$store.state.colors.toolbar.button"
+                  @click="editColor('toolbar_button')"
+                  elevation="2"
+                >
+                  Toolbar save button
+                </v-alert>
+              </v-col>
+              <v-col cols="12" md="6" lg="4">
+                <v-alert
+                  border="left"
+                  style="cursor: pointer"
+                  colored-border
+                  :color="$store.state.colors.textarea"
+                  @click="editColor('editor')"
+                  elevation="2"
+                >
+                  Editor background
+                </v-alert>
+              </v-col>
+              <v-col cols="12" md="6" lg="4">
+                <v-alert
+                  border="left"
+                  style="cursor: pointer"
+                  colored-border
+                  :color="$store.state.colors.settings"
+                  @click="editColor('settings')"
+                  elevation="2"
+                >
+                  Settings
+                </v-alert>
+              </v-col>
+            </v-row>
             
+            <v-dialog
+              v-model="colorDialog"
+              max-width="400"
+              persistent
+            >
+              <v-card>
+                <v-card-title>{{color.title}}</v-card-title>
+
+                <v-card-text>
+                  <v-color-picker style="margin: auto" v-model="color.value" show-swatches></v-color-picker>
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+
+                  <v-btn
+                    color="warning"
+                    text
+                    @click="colorDialog = false"
+                  >
+                    Cancel
+                  </v-btn>
+
+                  <v-btn
+                    color="success"
+                    depressed
+                    @click="updateColor()"
+                  >
+                    Update
+                  </v-btn>
+
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -73,7 +172,7 @@
               >
             
                 <v-card @click="editFunction(index)">
-                  <v-card-title><v-icon>{{ item.icon }}</v-icon>{{item.title}}</v-card-title>
+                  <v-card-title><v-icon left>{{ item.icon }}</v-icon>{{item.title}}</v-card-title>
                 </v-card>
 
               </v-col>
@@ -212,7 +311,13 @@ export default {
         name: '',
         value: ''
       }
-    }
+    },
+    colorDialog: false,
+    color: {
+      title: '',
+      value: ''
+    },
+
   }),
   methods: {
     factoryReset(){
@@ -254,6 +359,31 @@ export default {
       }
       this.editFunctionDialog = false;
       this.edited_index = null;
+    },
+    editColor(type){
+      switch (type) {
+        case 'app':
+          this.color.value = this.$store.state.colors.app;
+          break;
+        case 'toolbar_color':
+          this.color.value = this.$store.state.colors.toolbar.color;
+          break;
+        case 'toolbar_button':
+          this.color.value = this.$store.state.colors.toolbar.button;
+          break;
+        case 'editor':
+          this.color.value = this.$store.state.colors.textarea;
+          break;
+        case 'settings':
+          this.color.value = this.$store.state.colors.settings;
+          break;
+      }
+      this.color.title = type;
+      this.colorDialog = true;
+    },
+    updateColor(){
+      this.$store.commit('updateColor',this.color);
+      this.colorDialog = false;
     }
   },
   destroyed(){
@@ -264,7 +394,6 @@ export default {
 
 <style lang="scss" scoped>
 .x_left {
-  text-align: left !important;
   padding: 0 25px;
 }
 </style>

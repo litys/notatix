@@ -2,7 +2,7 @@
 
   <v-card outlined>
 
-    <div id="content-editor" contenteditable @input="updateText()"></div>
+    <div id="content-editor" :style="'background-color: '+$store.state.colors.textarea" contenteditable @input="updateText()"></div>
 
   </v-card>
 
@@ -34,6 +34,7 @@ export default {
 <style lang="scss" scoped>
 #content-editor {
   min-height: 500px;
+  padding: 15px;
 }
 [contenteditable]:focus {
   outline: none;

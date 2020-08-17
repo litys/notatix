@@ -1,8 +1,10 @@
 <template>
-  <v-app>
+  <v-app
+    :style="'background-color: '+$store.state.colors.app"
+  >
     <v-app-bar
       app
-      color="primary"
+      :color="$store.state.colors.toolbar.color"
       flat
       dark
       height="35px"
@@ -13,7 +15,7 @@
         small
         depressed
         style="margin-right: 15px"
-        color="success"
+        :color="$store.state.colors.toolbar.button"
         @click="saveProgress()"
       >SAVE</v-btn>
       <v-app-bar-nav-icon @click="menu=!menu" small></v-app-bar-nav-icon>
@@ -32,9 +34,9 @@
       fixed
     >
 
-      <h2>NOTATIX</h2>
+      <!-- <h2>NOTATIX</h2>
 
-      <v-divider></v-divider>
+      <v-divider></v-divider> -->
 
       <v-list dense>
 
@@ -49,7 +51,7 @@
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title style="text-align: center">{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -62,9 +64,9 @@
       fixed
     >
 
-      <h2>Functions</h2>
+      <!-- <h2>Functions</h2>
 
-      <v-divider></v-divider>
+      <v-divider></v-divider> -->
 
       <v-list dense>
 
@@ -79,7 +81,7 @@
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title style="text-align: center">{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -95,17 +97,17 @@ export default {
     items: [
       { 
         title: 'Home', 
-        icon: 'mdi-open-in-new',
+        icon: 'mdi-home',
         url: '/'
       },
       { 
         title: 'Story', 
-        icon: 'mdi-open-in-new',
+        icon: 'mdi-book',
         url: '/story'
       },
       { 
         title: 'Settings', 
-        icon: 'mdi-open-in-new',
+        icon: 'mdi-cog',
         url: '/settings'
       },
     ],
@@ -196,22 +198,6 @@ export default {
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
