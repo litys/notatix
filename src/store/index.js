@@ -18,13 +18,30 @@ export default new Vuex.Store({
   },
   mutations: {
     execAction(state, action) {
-      console.log(action.value)
       if(!!action.value) document.execCommand(action.name, false, action.value);
       else document.execCommand(action.name, false);
     },
+    
     loadFromStorage(state){
       let storageData = JSON.parse(localStorage.getItem('notatix'));
       state.action_items = storageData.action_items;
+    },
+    saveToStorage(state){
+      let parseData = {
+        action_items: state.action_items
+      }
+      localStorage.setItem('notatix', JSON.stringify(parseData))
+    },
+
+    addFunction(state, data) { // creating new function
+      state.action_items.push(data);
+    },
+    updateFunction(state, data) { // updating already existing function
+      state.action_items[data.index] = data;
+      delete state.action_items[data.index].index;
+    },
+    deleteFunction(state, data) { // deleting existing function
+      state.action_items.splice(data,1);
     }
   },
   actions: {
@@ -36,7 +53,7 @@ export default new Vuex.Store({
             icon: 'mdi-format-bold',
             action: {
               name: 'fontSize',
-              value: 7
+              valueSet: 7
             }
           },
           {
