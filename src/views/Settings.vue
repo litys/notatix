@@ -1,9 +1,10 @@
 <template>
     <v-card>
-    <v-toolbar flat color="primary" dark>
+    <!-- <v-toolbar flat color="primary" dark>
       <v-toolbar-title>User Profile</v-toolbar-title>
-    </v-toolbar>
+    </v-toolbar> -->
     <v-tabs
+      fixed-tabs
       show-arrows
     >
       <v-tab>
@@ -17,6 +18,10 @@
       <v-tab>
         <v-icon left>mdi-lock</v-icon>
         Functions
+      </v-tab>
+      <v-tab>
+        <v-icon left>mdi-lock</v-icon>
+        Help
       </v-tab>
       <v-tab>
         <v-icon left>mdi-lock</v-icon>
@@ -90,7 +95,7 @@
                   ></v-text-field>
                   <v-text-field
                     v-model="edited.icon"
-                    label="Icon"
+                    label="Icon (eg. mdi-ab-testing)"
                     outlined
                   ></v-text-field>
 
@@ -147,6 +152,45 @@
               </v-card>
             </v-dialog>
 
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+
+      <!-- HELP -->
+      <v-tab-item>
+        <v-card flat>
+          <v-card-text>
+            
+            <v-expansion-panels accordion>
+              <v-expansion-panel>
+                <v-expansion-panel-header><h3>Data storage</h3></v-expansion-panel-header>
+                <v-expansion-panel-content class="x_left">
+                  Aplication storage is located in virtual DOM and localStorage.<br>
+                  LocalStorage is using for handling personal options like colors, functions or user store. Aplication aim for privacy so <b>all data is stored on user site <u>in localStorage (browser memory)</u></b>.<br>
+                  Data is saving automatically before chaning page <b>BUT</b> if you want to close page or refresh it please press <b>SAVE</b> button on upper toolbar.
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+              <v-expansion-panel>
+                <v-expansion-panel-header><h3>Adding functions</h3></v-expansion-panel-header>
+                <v-expansion-panel-content class="x_left">
+                  If you wanna add new function you need to fill fields <b>Title, Icon</b> and <b>CommandName </b>. <br>
+                  Field <b>ValueArgument</b> is optional.<br><br>
+                  In field <b>Title</b> you can put anything you want.<br>
+                  In field <b>Icon</b> you need to chose icon for you function from google icons. You can use <a href="https://materialdesignicons.com/">this</a> site to browse all available solutions. <b>Remember to put mdi- on front of icon name!.</b><br> 
+                  In fields <b>CommandName</b> and <b>ValueArgument</b> you insert attributes for execCommand function. All list can be found <a href="https://developer.mozilla.org/pl/docs/Web/API/Document/execCommand">here</a>.
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+
+      <!-- About -->
+      <v-tab-item>
+        <v-card flat>
+          <v-card-text>
+            
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -219,4 +263,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.x_left {
+  text-align: left !important;
+  padding: 0 25px;
+}
 </style>

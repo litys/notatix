@@ -14,21 +14,27 @@ export default new Vuex.Store({
           value: 7
         }
       },
-    ]
+    ],
+    story: ''
   },
   mutations: {
     execAction(state, action) {
       if(!!action.value) document.execCommand(action.name, false, action.value);
       else document.execCommand(action.name, false);
     },
+    saveStory(state, text) {
+      state.story = text;
+    },
     
     loadFromStorage(state){
       let storageData = JSON.parse(localStorage.getItem('notatix'));
       state.action_items = storageData.action_items;
+      state.story = storageData.story;
     },
     saveToStorage(state){
       let parseData = {
-        action_items: state.action_items
+        action_items: state.action_items,
+        story: state.story
       }
       localStorage.setItem('notatix', JSON.stringify(parseData))
     },
@@ -63,7 +69,8 @@ export default new Vuex.Store({
               name: 'bold'
             }
           },
-        ]
+        ],
+        story: 'Start writing!'
       }
 
       localStorage.setItem('notatix', JSON.stringify(factoryData));

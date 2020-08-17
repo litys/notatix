@@ -2,9 +2,7 @@
 
   <v-card outlined>
 
-    <div id="content-editor" contenteditable>
-      Start writing!
-    </div>
+    <div id="content-editor" contenteditable @input="updateText()"></div>
 
   </v-card>
 
@@ -13,8 +11,23 @@
 <script>
 export default {
   data: () => ({
-    menu: true
+    text: ''
   }),
+  methods: {
+    updateText(){
+      this.text = document.getElementById('content-editor').innerHTML;
+    }
+  },
+  mounted(){
+    document.getElementById('content-editor').innerHTML = this.$store.state.story;
+    this.text = this.$store.state.story;
+  },
+  beforeDestroy(){
+    this.$store.commit('saveStory',this.text);
+  },
+  destroyed(){
+    this.$store.commit('saveToStorage');
+  }
 }
 </script>
 

@@ -9,6 +9,13 @@
     >
       <v-app-bar-nav-icon v-if="!prohibitedPath" @click="action_menu=!action_menu" small></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
+      <v-btn
+        small
+        depressed
+        style="margin-right: 15px"
+        color="success"
+        @click="saveProgress()"
+      >SAVE</v-btn>
       <v-app-bar-nav-icon @click="menu=!menu" small></v-app-bar-nav-icon>
     </v-app-bar>
 
@@ -174,10 +181,15 @@ export default {
       return this.$store.state.action_items;
     }
   },
+  methods: {
+    saveProgress(){
+      this.$store.commit('saveToStorage');
+    }
+  },
   mounted(){
     if(!!localStorage.getItem('notatix')) this.$store.commit('loadFromStorage');
     else this.$store.dispatch('factoryReset'); // First run
-  }
+  },
 };
 </script>
 
